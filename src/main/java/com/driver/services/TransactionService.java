@@ -67,23 +67,24 @@ public class TransactionService {
         book.setAvailable(false);
         book.setCard(card);
         Transaction transaction;
-        if(card.getCardStatus().toString().equalsIgnoreCase("DEACTIVATED")){
+        if(!card.getCardStatus().toString().equalsIgnoreCase("DEACTIVATED")){
             transaction = Transaction.builder()
                     .book(book)
                     .card(card)
                     .fineAmount(0)
-                    .transactionStatus(TransactionStatus.FAILED)
+                    .transactionStatus(TransactionStatus.SUCCESSFUL)
                     .isIssueOperation(true)
                     .transactionId(UUID.randomUUID().toString())
                     .build();
         }
         //If the transaction is successful, save the transaction to the list of transactions and return the id
         else {
+
             transaction = Transaction.builder()
                     .book(book)
                     .card(card)
                     .fineAmount(0)
-                    .transactionStatus(TransactionStatus.SUCCESSFUL)
+                    .transactionStatus(TransactionStatus.FAILED)
                     .isIssueOperation(true)
                     .transactionId(UUID.randomUUID().toString())
                     .build();
@@ -126,7 +127,7 @@ public class TransactionService {
                 .card(card)
                 .fineAmount(0)
                 .transactionStatus(TransactionStatus.SUCCESSFUL)
-                .isIssueOperation(true)
+                .isIssueOperation(false)
                 .transactionId(UUID.randomUUID().toString())
                 .build();
         transactionRepository5.save(transaction);
