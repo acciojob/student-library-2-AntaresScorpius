@@ -31,7 +31,7 @@ public class BookService {
                     }
                 }
             }
-            else if(author == null){
+            else if(genre != null){
                 System.out.println("author null and avail = true");
                 for (Book b : allBooks){
                     if(b.getGenre().toString().equals(genre) && b.isAvailable()){
@@ -39,7 +39,7 @@ public class BookService {
                     }
                 }
             }
-            else if (genre == null){
+            else if (author != null ){
                 System.out.println("genre null and avail = true");
                 for (Book b : allBooks){
                     if(b.getAuthor().getName().equals(author) && b.isAvailable()){
@@ -47,7 +47,12 @@ public class BookService {
                     }
                 }
             }else {
-
+                System.out.println("All avail = true");
+                for (Book b : allBooks){
+                    if (b.isAvailable()){
+                        books.add(b);
+                    }
+                }
             }
         }
         else {
@@ -59,7 +64,7 @@ public class BookService {
                     }
                 }
             }
-            else if(author == null){
+            else if(genre != null){
                 System.out.println("author null and avail = false");
                 for (Book b : allBooks){
                     if(b.getGenre().toString().equals(genre) && !b.isAvailable()){
@@ -67,7 +72,7 @@ public class BookService {
                     }
                 }
             }
-            else if (genre == null){
+            else if (author != null){
                 System.out.println("genre null and avail = false");
                 for (Book b : allBooks){
                     if(b.getAuthor().getName().equals(author) && !b.isAvailable()){
@@ -75,10 +80,14 @@ public class BookService {
                     }
                 }
             }else {
-
+                System.out.println("All avail = false");
+                for (Book b : allBooks){
+                    if (!b.isAvailable()){
+                        books.add(b);
+                    }
+                }
             }
         }
-
         return books;
     }
 }
