@@ -1,6 +1,7 @@
 package com.driver.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
@@ -32,6 +33,7 @@ public class Book {
     @ManyToOne
     @JoinColumn
     @JsonIgnoreProperties("books")
+    @JsonIgnore
     private Card card;
 
 
@@ -40,6 +42,7 @@ public class Book {
 
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("book")
+    @JsonIgnore
     private List<Transaction> transactions;
 
     public Book(String name, Genre genre, boolean available,  Author author) {

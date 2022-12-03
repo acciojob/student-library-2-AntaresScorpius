@@ -24,6 +24,7 @@ public class BookService {
         List<Book> books = new ArrayList<>(); //find the elements of the list by yourself
         if (available){
             if(genre != null && author != null){
+                System.out.println("Nothing null");
                 for (Book b : allBooks){
                     if (b.getGenre().toString().equals(genre) && b.getAuthor().getName().equals(author) && b.isAvailable()){
                         books.add(b);
