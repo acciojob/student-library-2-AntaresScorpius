@@ -30,14 +30,14 @@ public class BookService {
                     }
                 }
             }
-            else if(genre != null){
+            else if(author == null){
                 for (Book b : allBooks){
                     if(b.getGenre().toString().equals(genre) && b.isAvailable()){
                         books.add(b);
                     }
                 }
             }
-            else if (author != null){
+            else if (genre == null){
                 for (Book b : allBooks){
                     if(b.getAuthor().getName().equals(author) && b.isAvailable()){
                         books.add(b);
@@ -55,14 +55,14 @@ public class BookService {
                     }
                 }
             }
-            else if(genre != null){
+            else if(author == null){
                 for (Book b : allBooks){
                     if(b.getGenre().toString().equals(genre) && !b.isAvailable()){
                         books.add(b);
                     }
                 }
             }
-            else if (author != null){
+            else if (genre == null){
                 for (Book b : allBooks){
                     if(b.getAuthor().getName().equals(author) && !b.isAvailable()){
                         books.add(b);
