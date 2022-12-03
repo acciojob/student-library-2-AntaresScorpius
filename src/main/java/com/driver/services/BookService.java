@@ -22,29 +22,57 @@ public class BookService {
     public List<Book> getBooks(String genre, boolean available, String author){
         List<Book> allBooks = bookRepository2.findAll();
         List<Book> books = new ArrayList<>(); //find the elements of the list by yourself
-        if(genre != null && author != null){
-            for (Book b : allBooks){
-                if (b.getGenre().toString().equals(genre) && b.getAuthor().getName().equals(author)){
-                    books.add(b);
+        if (available){
+            if(genre != null && author != null){
+                for (Book b : allBooks){
+                    if (b.getGenre().toString().equals(genre) && b.getAuthor().getName().equals(author) && b.isAvailable()){
+                        books.add(b);
+                    }
                 }
             }
-        }
-        else if(genre != null){
-            for (Book b : allBooks){
-                if(b.getGenre().toString().equals(genre)){
-                    books.add(b);
+            else if(genre != null){
+                for (Book b : allBooks){
+                    if(b.getGenre().toString().equals(genre) && b.isAvailable()){
+                        books.add(b);
+                    }
                 }
             }
-        }
-        else if (author != null){
-            for (Book b : allBooks){
-                if(b.getAuthor().getName().equals(author)){
-                    books.add(b);
+            else if (author != null){
+                for (Book b : allBooks){
+                    if(b.getAuthor().getName().equals(author) && b.isAvailable()){
+                        books.add(b);
+                    }
                 }
-            }
-        }else {
+            }else {
 
+            }
         }
+        else {
+            if(genre != null && author != null){
+                for (Book b : allBooks){
+                    if (b.getGenre().toString().equals(genre) && b.getAuthor().getName().equals(author) && !b.isAvailable()){
+                        books.add(b);
+                    }
+                }
+            }
+            else if(genre != null){
+                for (Book b : allBooks){
+                    if(b.getGenre().toString().equals(genre) && !b.isAvailable()){
+                        books.add(b);
+                    }
+                }
+            }
+            else if (author != null){
+                for (Book b : allBooks){
+                    if(b.getAuthor().getName().equals(author) && !b.isAvailable()){
+                        books.add(b);
+                    }
+                }
+            }else {
+
+            }
+        }
+
         return books;
     }
 }
