@@ -1,6 +1,9 @@
 package com.driver.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -8,6 +11,10 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+
+@Getter
+@Setter
+@AllArgsConstructor
 public class Student {
 
     @Id
@@ -26,7 +33,7 @@ public class Student {
 
     // alter table student add foreign key constraint card references Card(id)
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn   // join this column to the primary key of Card table
     @JsonIgnoreProperties("student")
     private Card card;

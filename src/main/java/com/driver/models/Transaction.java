@@ -1,6 +1,7 @@
 package com.driver.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -8,6 +9,11 @@ import java.util.Date;
 import java.util.UUID;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@Builder
+@NoArgsConstructor
 public class Transaction {
 
     @Id
@@ -16,12 +22,12 @@ public class Transaction {
 
     private String transactionId = UUID.randomUUID().toString(); // externalId
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn
     @JsonIgnoreProperties("books")
     private Card card;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn
     @JsonIgnoreProperties("transactions")
     private Book book;

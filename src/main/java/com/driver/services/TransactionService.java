@@ -1,5 +1,7 @@
 package com.driver.services;
 
+import com.driver.models.Book;
+import com.driver.models.Card;
 import com.driver.models.Transaction;
 import com.driver.models.TransactionStatus;
 import com.driver.repositories.BookRepository;
@@ -10,6 +12,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.UUID;
 
 @Service
 public class TransactionService {
@@ -34,18 +38,46 @@ public class TransactionService {
 
     public String issueBook(int cardId, int bookId) throws Exception {
         //check whether bookId and cardId already exist
-        //conditions required for successful transaction of issue book:
-        //1. book is present and available
-        // If it fails: throw new Exception("Book is either unavailable or not present");
+        Card card;
+        Book book;
         //2. card is present and activated
         // If it fails: throw new Exception("Card is invalid");
+        try{
+            card = cardRepository5.findById(cardId).get();
+        }catch (NoSuchElementException e){
+            throw new Exception("Card is Invalid");
+        }
+        //1. book is present and available
+        // If it fails: throw new Exception("Book is either unavailable or not present");
+        try{
+            book = bookRepository5.findById(bookId).get();
+        }catch (NoSuchElementException e){
+            throw new Exception("Book is either unavailable or not present");
+        }
+        System.out.println("Card Found: " +card);
+        System.out.println("book found = " + book);
+
+        //conditions required for successful transaction of issue book:
         //3. number of books issued against the card is strictly less than max_allowed_books
         // If it fails: throw new Exception("Book limit has reached for this card");
+        if (card.getBooks().size() >= 3){
+            throw new Exception("Book limit has reached for this card");
+        }
+        book.setAvailable(false);
+        book.setCard(card);
         //If the transaction is successful, save the transaction to the list of transactions and return the id
-
+        Transaction transaction = Transaction.builder()
+                .book(book)
+                .card(card)
+                .fineAmount(0)
+                .transactionStatus(TransactionStatus.SUCCESSFUL)
+                .isIssueOperation(true)
+                .transactionId(UUID.randomUUID().toString())
+                .build();
+        transactionRepository5.save(transaction);
         //Note that the error message should match exactly in all cases
 
-       return null; //return transactionId instead
+       return transaction.getTransactionId(); //return transactionId instead
     }
 
     public Transaction returnBook(int cardId, int bookId) throws Exception{
