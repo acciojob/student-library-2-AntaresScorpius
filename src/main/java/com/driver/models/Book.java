@@ -38,11 +38,23 @@ public class Book {
 
 
     @Column(columnDefinition = "TINYINT(1)")
-    private boolean available;
+    private boolean available = true;
 
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("book")
     private List<Transaction> transactions;
+
+    public Book(String name, Genre genre, boolean available,  Author author) {
+        this.name = name;
+        this.genre = genre;
+        this.author = author;
+        this.available = available;
+    }
+    public Book(String name, Genre genre,  Author author) {
+        this.name = name;
+        this.genre = genre;
+        this.author = author;
+    }
 
     public Book() {
     }
