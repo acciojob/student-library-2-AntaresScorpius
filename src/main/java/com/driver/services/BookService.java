@@ -5,6 +5,7 @@ import com.driver.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,7 +20,31 @@ public class BookService {
     }
 
     public List<Book> getBooks(String genre, boolean available, String author){
-        List<Book> books = null; //find the elements of the list by yourself
+        List<Book> allBooks = bookRepository2.findAll();
+        List<Book> books = new ArrayList<>(); //find the elements of the list by yourself
+        if(genre != null && author != null){
+            for (Book b : allBooks){
+                if (b.getGenre().toString().equals(genre) && b.getAuthor().getName().equals(author)){
+                    books.add(b);
+                }
+            }
+        }
+        else if(genre != null){
+            for (Book b : allBooks){
+                if(b.getGenre().toString().equals(genre)){
+                    books.add(b);
+                }
+            }
+        }
+        else if (author != null){
+            for (Book b : allBooks){
+                if(b.getAuthor().getName().equals(author)){
+                    books.add(b);
+                }
+            }
+        }else {
+
+        }
         return books;
     }
 }

@@ -25,10 +25,15 @@ public class BookController {
         return new ResponseEntity<>("Success addded Book", HttpStatus.CREATED);
     }
     //Add required annotations
-    public ResponseEntity getBooks(@RequestParam(value = "genre", required = false) String genre,
+    @GetMapping("book")
+    public ResponseEntity<List<Book>>getBooks(@RequestParam(value = "genre", required = false) String genre,
                                    @RequestParam(value = "available", required = false, defaultValue = "false") boolean available,
                                    @RequestParam(value = "author", required = false) String author){
 
+        System.out.println("genre = " + genre);
+        System.out.println("author = " + author);
+        System.out.println("available = " + available);
+        //bookService.getBooks(genre, available, author);
         List<Book> bookList = null; //find the elements of the list by yourself
 
         return new ResponseEntity<>(bookList, HttpStatus.OK);
