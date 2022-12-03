@@ -21,7 +21,7 @@ public class TransactionController {
         System.out.println("bookId = " + bookId);
         String transactionId = transactionService.issueBook(cardId,bookId);
         System.out.println("transactionId = " + transactionId);
-        return new ResponseEntity<>("transaction completed", HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(transactionId, HttpStatus.ACCEPTED);
     }
 
     //Add required annotations
