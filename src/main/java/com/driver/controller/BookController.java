@@ -33,8 +33,8 @@ public class BookController {
         System.out.println("genre = " + genre);
         System.out.println("author = " + author);
         System.out.println("available = " + available);
-        //bookService.getBooks(genre, available, author);
-        List<Book> bookList = null; //find the elements of the list by yourself
+
+        List<Book> bookList = bookService.getBooks(genre, available, author);
 
         return new ResponseEntity<>(bookList, HttpStatus.OK);
 
