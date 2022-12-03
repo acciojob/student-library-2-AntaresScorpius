@@ -63,17 +63,33 @@ public class TransactionService {
         if (card.getBooks().size() >= 3){
             throw new Exception("Book limit has reached for this card");
         }
+
         book.setAvailable(false);
         book.setCard(card);
         //If the transaction is successful, save the transaction to the list of transactions and return the id
-        Transaction transaction = Transaction.builder()
-                .book(book)
-                .card(card)
-                .fineAmount(0)
-                .transactionStatus(TransactionStatus.SUCCESSFUL)
-                .isIssueOperation(true)
-                .transactionId(UUID.randomUUID().toString())
-                .build();
+        Transaction transaction;
+        if (card.getCardStatus().toString().equals("DEACTIVATED")){
+            transaction = Transaction.builder()
+                    .book(book)
+                    .card(card)
+                    .fineAmount(0)
+                    .transactionStatus(TransactionStatus.FAILED)
+                    .isIssueOperation(true)
+                    .transactionId(UUID.randomUUID().toString())
+                    .build();
+        }else{
+            transaction = Transaction.builder()
+                    .book(book)
+                    .card(card)
+                    .fineAmount(0)
+                    .transactionStatus(TransactionStatus.SUCCESSFUL)
+                    .isIssueOperation(true)
+                    .transactionId(UUID.randomUUID().toString())
+                    .build();
+        }
+
+
+
         transactionRepository5.save(transaction);
         //Note that the error message should match exactly in all cases
 
