@@ -80,7 +80,7 @@ public class TransactionService {
        return transaction.getTransactionId(); //return transactionId instead
     }
 
-    public void returnBook(int cardId, int bookId) throws Exception{
+    public Transaction returnBook(int cardId, int bookId) throws Exception{
 
 //        List<Transaction> transactions = transactionRepository5.findAll();
 //        Transaction transaction = transactions.get(transactions.size() - 1);
@@ -104,12 +104,23 @@ public class TransactionService {
         }
         System.out.println("Card Found: " +card);
         System.out.println("book found = " + book);
+        book.setAvailable(true);
+        book.setCard(null);
+        Transaction transaction = Transaction.builder()
+                .book(book)
+                .card(card)
+                .fineAmount(0)
+                .transactionStatus(TransactionStatus.SUCCESSFUL)
+                .isIssueOperation(true)
+                .transactionId(UUID.randomUUID().toString())
+                .build();
+        transactionRepository5.save(transaction);
 
         //for the given transaction calculate the fine amount considering the book has been returned exactly when this function is called
         //make the book available for other users
         //make a new transaction for return book which contains the fine amount as well
 
-        Transaction returnBookTransaction  = null;
-        //return returnBookTransaction; //return the transaction after updating all details
+        Transaction returnBookTransaction  = transaction;
+        return returnBookTransaction; //return the transaction after updating all details
     }
 }
