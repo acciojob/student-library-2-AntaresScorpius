@@ -80,16 +80,36 @@ public class TransactionService {
        return transaction.getTransactionId(); //return transactionId instead
     }
 
-    public Transaction returnBook(int cardId, int bookId) throws Exception{
+    public void returnBook(int cardId, int bookId) throws Exception{
 
-        List<Transaction> transactions = transactionRepository5.find(cardId, bookId, TransactionStatus.SUCCESSFUL, true);
-        Transaction transaction = transactions.get(transactions.size() - 1);
+//        List<Transaction> transactions = transactionRepository5.findAll();
+//        Transaction transaction = transactions.get(transactions.size() - 1);
+//        System.out.println("All transactions = " + transactions);
+//        System.out.println("One transaction = " + transaction);
+        Card card;
+        Book book;
+        //2. card is present and activated
+        // If it fails: throw new Exception("Card is invalid");
+        try{
+            card = cardRepository5.findById(cardId).get();
+        }catch (NoSuchElementException e){
+            throw new Exception("Card is Invalid");
+        }
+        //1. book is present and available
+        // If it fails: throw new Exception("Book is either unavailable or not present");
+        try{
+            book = bookRepository5.findById(bookId).get();
+        }catch (NoSuchElementException e){
+            throw new Exception("Book is either unavailable or not present");
+        }
+        System.out.println("Card Found: " +card);
+        System.out.println("book found = " + book);
 
         //for the given transaction calculate the fine amount considering the book has been returned exactly when this function is called
         //make the book available for other users
         //make a new transaction for return book which contains the fine amount as well
 
         Transaction returnBookTransaction  = null;
-        return returnBookTransaction; //return the transaction after updating all details
+        //return returnBookTransaction; //return the transaction after updating all details
     }
 }
