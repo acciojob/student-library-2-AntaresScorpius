@@ -28,6 +28,7 @@ public class Book {
     @ManyToOne
     @JoinColumn
     @JsonIgnoreProperties("booksWritten")
+    @JsonIgnore
     private Author author;
 
     @ManyToOne

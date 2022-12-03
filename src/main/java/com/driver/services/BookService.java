@@ -24,7 +24,7 @@ public class BookService {
         List<Book> books = new ArrayList<>(); //find the elements of the list by yourself
         if (available){
             if(genre != null && author != null){
-                System.out.println("Nothing null");
+                System.out.println("Nothing null and avail = true");
                 for (Book b : allBooks){
                     if (b.getGenre().toString().equals(genre) && b.getAuthor().getName().equals(author) && b.isAvailable()){
                         books.add(b);
@@ -32,6 +32,7 @@ public class BookService {
                 }
             }
             else if(author == null){
+                System.out.println("author null and avail = true");
                 for (Book b : allBooks){
                     if(b.getGenre().toString().equals(genre) && b.isAvailable()){
                         books.add(b);
@@ -39,6 +40,7 @@ public class BookService {
                 }
             }
             else if (genre == null){
+                System.out.println("genre null and avail = true");
                 for (Book b : allBooks){
                     if(b.getAuthor().getName().equals(author) && b.isAvailable()){
                         books.add(b);
@@ -50,6 +52,7 @@ public class BookService {
         }
         else {
             if(genre != null && author != null){
+                System.out.println("Nothing null and avail = false");
                 for (Book b : allBooks){
                     if (b.getGenre().toString().equals(genre) && b.getAuthor().getName().equals(author) && !b.isAvailable()){
                         books.add(b);
@@ -57,6 +60,7 @@ public class BookService {
                 }
             }
             else if(author == null){
+                System.out.println("author null and avail = false");
                 for (Book b : allBooks){
                     if(b.getGenre().toString().equals(genre) && !b.isAvailable()){
                         books.add(b);
@@ -64,6 +68,7 @@ public class BookService {
                 }
             }
             else if (genre == null){
+                System.out.println("genre null and avail = false");
                 for (Book b : allBooks){
                     if(b.getAuthor().getName().equals(author) && !b.isAvailable()){
                         books.add(b);
