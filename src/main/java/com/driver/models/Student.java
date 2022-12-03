@@ -23,6 +23,14 @@ public class Student {
 
     @Column(unique = true)
     private String emailId;
+
+    public Student(String emailId, String name, int age, String country) {
+        this.emailId = emailId;
+        this.name = name;
+        this.age = age;
+        this.country = country;
+    }
+
     private String name;
     private int age; // in case we want to check on the basis of age while issuing
 
